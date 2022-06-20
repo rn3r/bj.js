@@ -1,4 +1,4 @@
-import { BJ_ACE_MAX, BJ_ACE_MIN, BJ_WIN, FACES, SUITS, BJ_FACE } from "./constants.js";
+const { BJ_ACE_MAX, BJ_ACE_MIN, BJ_WIN, FACES, SUITS, BJ_FACE } = require("./constants.js");
 
 function randomInArray(arr) {
     return arr[Math.floor(Math.random() * arr.length)]
@@ -17,6 +17,7 @@ function countHandRaw(hand) {
     return hand.reduce((acc, card) => acc + card.baseValue, 0);
 }
 
+// hand : list
 function countHand(hand) {
     for(var card of hand){
         if (card.face == "A")
@@ -57,4 +58,4 @@ function deal(hand, initial) {
     return hand.push(card)
 }
 
-export default { Card, countHand, deal }
+module.exports = { Card, countHand, deal }

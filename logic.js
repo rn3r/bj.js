@@ -1,5 +1,5 @@
-import { Outcome, Outcomeresult, BJ_WIN } from "./constants.js"
-import { countHand } from "./cards.js"
+const { Outcome, Outcomeresult, BJ_WIN } = require("./constants.js")
+const { countHand } = require("./cards.js")
 
 function renderCard(card, idx, hide) {
     return (idx > 0 && hide) ? "?" : `${card.suit} ${card.face}`
@@ -76,4 +76,4 @@ function getOutcome(playerHand, dealerHand, stood) {
 
 }
 
-export default { getOutcome, win, loss, tie }
+module.exports = { getOutcome, win, loss, tie }

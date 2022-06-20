@@ -1,6 +1,6 @@
-import { Outcomes, BJ_DEALER_MAX } from "./constants.js";
-import { Card, counthand, deal } from './cards.js';
-import { renderData, getOutcome } from "./logic.js";
+const { Outcomes, BJ_DEALER_MAX } = require("./constants.js");
+const { Card, counthand, deal } = require('./cards.js');
+const { renderData, getOutcome } = require("./logic.js")
 
 var stood = false
 var outcome = null
