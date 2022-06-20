@@ -1,4 +1,4 @@
-const Constants = require("./constants.js")
+import { BJ_ACE_MAX, BJ_ACE_MIN, BJ_WIN, FACES, SUITS, BJ_FACE } from "./constants.js";
 
 function randomInArray(arr) {
     return arr[Math.floor(Math.random() * arr.length)]
@@ -20,18 +20,18 @@ function countHandRaw(hand) {
 function countHand(hand) {
     for(var card of hand){
         if (card.face == "A")
-            card.baseValue = Constants.BJ_ACE_MAX
+            card.baseValue = BJ_ACE_MAX
     }
 
     var lowerAce = null
-    var aceCheck = hand.filter(card => card.face == "A" && card.baseValue != Constants.BJ_ACE_MIN)
-    var lowerAce = aceCheck.length > 0 ? aceCheck[0] : None
+    var aceCheck = hand.filter(card => card.face == "A" && card.baseValue != BJ_ACE_MIN)
+    var lowerAce = aceCheck.length > 0 ? aceCheck[0] : none
 
     while(
-        countHandRaw(hand) > Constants.BJ_WIN &&
+        countHandRaw(hand) > BJ_WIN &&
         lowerAce != None
     ) {
-        lowerAce.baseValue = Constants.BJ_ACE_MIN
+        lowerAce.baseValue = BJ_ACE_MIN
         break
     }
 
@@ -39,8 +39,8 @@ function countHand(hand) {
 }
 
 function deal(hand, initial) {
-    var face = randomInArray(Constants.FACES)
-    var suit = randomInArray(Constants.SUITS)
+    var face = randomInArray(FACES)
+    var suit = randomInArray(SUITS)
 
     var cardCheck = hand.filter(card => card.face == face && card.suit == suit)
 
@@ -48,13 +48,13 @@ function deal(hand, initial) {
         return deal(hand, initial)
     }
 
-    var card = new Card(face, suit, typeof(face) == "number" ? face : (face == "A" ? Constants.BJ_ACE_MIN : Constants.BJ_FACE) )
+    var card = new Card(face, suit, typeof(face) == "number" ? face : (face == "A" ? BJ_ACE_MIN : BJ_FACE) )
 
-    if (initial && countHand(hand + card) >= Constants.BJ_WIN) {
+    if (initial && countHand(hand + card) >= BJ_WIN) {
         return deal(hand, initial)
     }
 
     return hand.push(card)
 }
 
-module.exports = { Card, countHand, deal }
+export default { Card, countHand, deal }

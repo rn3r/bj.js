@@ -1,5 +1,5 @@
-const Constants = require("./constants.js")
-const Cards = require("./cards.js")
+import { Outcome, Outcomeresult, BJ_WIN } from "./constants.js"
+import { countHand } from "./cards.js"
 
 function renderCard(card, idx, hide) {
     return (idx > 0 && hide) ? "?" : `${card.suit} ${card.face}`
@@ -26,40 +26,40 @@ function renderData(playerHand, DealerHand, stood, outcome) {
 }
 
 function win(reason){
-    var outcome = new Constants.Outcome(1, 0, 0, 0)
-    return Constants.Outcomeresult(outcome, reason, "")
+    var outcome = new Outcome(1, 0, 0, 0)
+    return Outcomeresult(outcome, reason, "")
 }
 
 function loss(reason){
-    var outcome = new Constants.Outcome(0, 1, 0, 0)
-    return Constants.Outcomeresult(outcome, reason, "")
+    var outcome = new Outcome(0, 1, 0, 0)
+    return Outcomeresult(outcome, reason, "")
 }
 
 function tie(reason){
-    var outcome = new Constants.Outcome(0, 0, 1, 0)
-    return Constants.Outcomeresult(outcome, reason, "")
+    var outcome = new Outcome(0, 0, 1, 0)
+    return Outcomeresult(outcome, reason, "")
 }
 
 function getOutcome(playerHand, dealerHand, stood) {
-    var playerScore = Cards.countHand(playerHand)
-    var dealerScore = Cards.countHand(dealerHand)
+    var playerScore = countHand(playerHand)
+    var dealerScore = countHand(dealerHand)
 
-    if (playerScore == Constants.BJ_WIN) {
+    if (playerScore == BJ_WIN) {
         return win("You got to 21.")
     }
-    else if (dealerScore == Constants.BJ_WIN) {
+    else if (dealerScore == BJ_WIN) {
         return loss("Dealer got to 21.")
     }
-    else if(playerScore <= Constants.BJ_WIN && playerHand.length == 5) {
+    else if(playerScore <= BJ_WIN && playerHand.length == 5) {
         return win("You got 5 cards.")
     }
-    else if(dealerScore <= Constants.BJ_WIN && dealerHand.length == 5) {
+    else if(dealerScore <= BJ_WIN && dealerHand.length == 5) {
         return loss("Dealer got 5 cards.")
     }
-    else if (playerScore > Constants.BJ_WIN) {
+    else if (playerScore > BJ_WIN) {
         return loss("You busted.")
     }
-    else if (dealerScore > Constants.BJ_WIN) {
+    else if (dealerScore > BJ_WIN) {
         return win("Dealer busted.")
     }
     else if (playerScore > dealerScore && stood) {
@@ -76,4 +76,4 @@ function getOutcome(playerHand, dealerHand, stood) {
 
 }
 
-module.exports = { getOutcome, win, loss, tie }
+export default { getOutcome, win, loss, tie }
